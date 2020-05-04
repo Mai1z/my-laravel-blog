@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Facades\Storage;
@@ -13,16 +14,16 @@ class Post extends Model
     const IS_DRAFT = 0;
     const IS_PUBLIC = 1;
 
-    protected $fillable = ['title', 'content'];
+    protected $fillable = ['title', 'content', 'date'];
 
     public function category ()
     {
-        return $this->hasOne(Category::class);
+        return $this->belongsTo(Category::class);
     }
 
     public function author ()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     public function tags ()
@@ -55,18 +56,26 @@ class Post extends Model
         $this->save();
     }
 
+    public function removeImage()
+    {
+        if($this->image == null)
+        {
+            Storage::delete('uploads/' . $this->image);
+        }
+    }
+
     public function remove()
     {
-        // удалить картинку поста
+        $this->removeImage();
         $this->delete();
     }
 
     public function uploadImage($image)
     {
-        if ($image = null) {return;}
-        Storage::delete('uploads/' . $this->image);
+        if ($image == null) {return;}
+        $this->removeImage();
         $filename = str_random(10) . '.' . $image->extension();
-        $image->saveAs('uploads', $filename);
+        $image->storeAs('uploads', $filename);
         $this->image = $filename;
         $this->save();
     }
@@ -84,14 +93,14 @@ class Post extends Model
 
     public function setCategory($id)
     {
-        if ($id = null) {return;}
+        if ($id == null) {return;}
         $this->category_id = $id;
         $this->save();
     }
 
     public function setTags($ids)
     {
-        if ($id = null) {return;}
+        if ($ids == null) {return;}
         $this->tags()->sync($ids);
     }
 
@@ -139,4 +148,28 @@ class Post extends Model
         return $this->setFeatured();
     }
 
+    public function getCategoryTitle()
+    {
+        if ($this->category != null)
+        {
+            return $this->category->title;
+        }
+        return 'Нет категории';
+    }
+
+    public function getTagsTitles()
+    {
+        if (!$this->tags->isEmpty())
+        {
+            return implode(', ', $this->tags->pluck('title')->all());
+        }
+        return 'Нет категории';
+    }
+
+    public function getDateAttribute($value)
+    {
+        $date = Carbon::createFromFormat('Y-m-d', $value)->format('y/m/d');
+
+        return $date;
+    }
 }
