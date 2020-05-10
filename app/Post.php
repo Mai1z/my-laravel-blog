@@ -172,4 +172,24 @@ class Post extends Model
 
         return $date;
     }
+
+    public function getDate()
+    {
+        return Carbon::createFromFormat('y/m/d', $this->date)->format('F d, Y');
+    }
+
+    public static function getPopularPosts()
+    {
+        return self::orderBy('views','desc')->take(4)->get();
+    }
+
+    public static function getFeaturedPosts()
+    {
+        return self::where('is_featured',1)->take(1)->inRandomOrder()->get();
+    }
+
+    public static function getRecentPosts()
+    {
+        return self::orderBy('date', 'desc')->take(3)->get();
+    }
 }

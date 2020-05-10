@@ -11,9 +11,9 @@ class Tag extends Model
 
     protected $fillable = ['title'];
 
-    public function posts ()
+    public function posts()
     {
-        return $this->belongsToMany(Tag::class, 'post_tags', 'tag_id', 'post_id');
+        return $this->belongsToMany(Post::class, 'post_tags', 'tag_id', 'post_id');
     }
 
     public function sluggable()
