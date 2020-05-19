@@ -48,7 +48,7 @@
         <div class="category-widget">
             <ul>
                 @foreach($categories as $category)
-                <li><a href="{{ route('category.show', $post->category->slug) }}" class="cat-1">{{ $category->title }}<span>{{ $category->posts()->count() }}</span></a></li>
+                <li><a href="{{ route('category.show', $category->slug) }}" class="cat-1">{{ $category->title }}<span>{{ $category->posts()->count() }}</span></a></li>
                 @endforeach
             </ul>
         </div>

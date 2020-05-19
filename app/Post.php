@@ -31,6 +31,11 @@ class Post extends Model
         return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');
     }
 
+    public function comments ()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function sluggable()
     {
         return [

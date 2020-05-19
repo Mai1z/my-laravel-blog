@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>WebMag HTML Template</title>
+    <title>Web Blog</title>
 
     <!-- Google font -->
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:700%7CNunito:300,600" rel="stylesheet">
@@ -19,12 +19,17 @@
 
     <!-- Custom stlylesheet -->
     <link type="text/css" rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../plugins/highlight/styles/gruvbox-dark.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../img/favicon.png">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
     <![endif]-->
 
 </head>
@@ -39,29 +44,39 @@
             <div class="container">
                 <!-- logo -->
                 <div class="nav-logo">
-                    <a href="index.html" class="logo"><img src="../img/logo.png" alt=""></a>
+                    <a href="/" class="logo"><img src="../img/logo2.png" alt=""></a>
                 </div>
                 <!-- /logo -->
 
                 <!-- nav -->
                 <ul class="nav-menu nav navbar-nav">
-                    <li><a href="category.html">News</a></li>
-                    <li><a href="category.html">Popular</a></li>
-                    <li class="cat-1"><a href="category.html">Web Design</a></li>
-                    <li class="cat-2"><a href="category.html">JavaScript</a></li>
-                    <li class="cat-3"><a href="category.html">Css</a></li>
-                    <li class="cat-4"><a href="category.html">Jquery</a></li>
+{{--                    <li><a href="category.html">News</a></li>--}}
+{{--                    <li><a href="category.html">Popular</a></li>--}}
+{{--                    <li class="cat-1"><a href="category.html">Web Design</a></li>--}}
+                    <li class="cat-2"><a href="/category/javascript">JavaScript</a></li>
+                    <li class="cat-3"><a href="/category/php">PHP</a></li>
+{{--                    <li class="cat-4"><a href="category.html">Laravel</a></li>--}}
                 </ul>
                 <!-- /nav -->
 
                 <!-- search & aside toggle -->
                 <div class="nav-btns">
+                    <ul class="nav-menu nav navbar-nav">
+                        @if(Auth::check())
+                            <li><a href="{{ route('profile') }}">My profile</a></li>
+                            <li><a href="{{ route('logout') }}">Logout</a></li>
+                        @else
+                            <li><a href="{{ route('login') }}">Login</a></li>
+                            <li><a href="{{ route('register') }}">Register</a></li>
+                        @endif
+
+                    </ul>
                     <button class="aside-btn"><i class="fa fa-bars"></i></button>
-                    <button class="search-btn"><i class="fa fa-search"></i></button>
-                    <div class="search-form">
-                        <input class="search-input" type="text" name="search" placeholder="Enter Your Search ...">
-                        <button class="search-close"><i class="fa fa-times"></i></button>
-                    </div>
+{{--                    <button class="search-btn"><i class="fa fa-search"></i></button>--}}
+{{--                    <div class="search-form">--}}
+{{--                        <input class="search-input" type="text" name="search" placeholder="Enter Your Search ...">--}}
+{{--                        <button class="search-close"><i class="fa fa-times"></i></button>--}}
+{{--                    </div>--}}
                 </div>
                 <!-- /search & aside toggle -->
             </div>
@@ -73,10 +88,14 @@
             <!-- nav -->
             <div class="section-row">
                 <ul class="nav-aside-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="#">Join Us</a></li>
-                    <li><a href="#">Advertisement</a></li>
+                    <li><a href="/">Home</a></li>
+                    @if(Auth::check())
+                        <li><a href="{{ route('profile') }}">My profile</a></li>
+                        <li><a href="{{ route('logout') }}">Logout</a></li>
+                    @else
+                        <li><a href="{{ route('login') }}">Login</a></li>
+                        <li><a href="{{ route('register') }}">Register</a></li>
+                    @endif
                     <li><a href="contact.html">Contacts</a></li>
                 </ul>
             </div>
@@ -86,10 +105,10 @@
             <div class="section-row">
                 <h3>Follow us</h3>
                 <ul class="nav-aside-social">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                    <li><a href="#"><i class="fa fa-vk"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa fa-github"></i></a></li>
+{{--                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>--}}
                 </ul>
             </div>
             <!-- /social links -->
@@ -115,63 +134,38 @@
             <div class="col-md-5">
                 <div class="footer-widget">
                     <div class="footer-logo">
-                        <a href="index.html" class="logo"><img src="../img/logo.png" alt=""></a>
+                        <a href="index.html" class="logo"><img src="../img/logo2.png" alt=""></a>
                     </div>
                     <ul class="footer-nav">
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Advertisement</a></li>
+{{--                        <li><a href="#">Privacy Policy</a></li>--}}
+{{--                        <li><a href="#">Advertisement</a></li>--}}
                     </ul>
-                    <div class="footer-copyright">
-								<span>&copy; <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></span>
-                    </div>
                 </div>
             </div>
 
             <div class="col-md-4">
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="footer-widget">
-                            <h3 class="footer-title">About Us</h3>
-                            <ul class="footer-links">
-                                <li><a href="about.html">About Us</a></li>
-                                <li><a href="#">Join Us</a></li>
-                                <li><a href="contact.html">Contacts</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="footer-widget">
-                            <h3 class="footer-title">Catagories</h3>
-                            <ul class="footer-links">
-                                <li><a href="category.html">Web Design</a></li>
-                                <li><a href="category.html">JavaScript</a></li>
-                                <li><a href="category.html">Css</a></li>
-                                <li><a href="category.html">Jquery</a></li>
-                            </ul>
-                        </div>
-                    </div>
+                    <div class="footer-copyright">For web developers © PrytkinArt.info 2020</div>
                 </div>
             </div>
 
-            <div class="col-md-3">
-                <div class="footer-widget">
-                    <h3 class="footer-title">Join our Newsletter</h3>
-                    <div class="footer-newsletter">
-                        <form>
-                            <input class="input" type="email" name="newsletter" placeholder="Enter your email">
-                            <button class="newsletter-btn"><i class="fa fa-paper-plane"></i></button>
-                        </form>
-                    </div>
-                    <ul class="footer-social">
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                    </ul>
-                </div>
-            </div>
+{{--            <div class="col-md-3">--}}
+{{--                <div class="footer-widget">--}}
+{{--                    <h3 class="footer-title">Join our Newsletter</h3>--}}
+{{--                    <div class="footer-newsletter">--}}
+{{--                        <form>--}}
+{{--                            <input class="input" type="email" name="newsletter" placeholder="Enter your email">--}}
+{{--                            <button class="newsletter-btn"><i class="fa fa-paper-plane"></i></button>--}}
+{{--                        </form>--}}
+{{--                    </div>--}}
+{{--                    <ul class="footer-social">--}}
+{{--                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>--}}
+{{--                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>--}}
+{{--                        <li><a href="#"><i class="fa fa-google-plus"></i></a></li>--}}
+{{--                        <li><a href="#"><i class="fa fa-pinterest"></i></a></li>--}}
+{{--                    </ul>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
         </div>
         <!-- /row -->
@@ -184,6 +178,10 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="../js/jquery.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/main.js"></script>
+<script src="../plugins/highlight/highlight.pack.js"></script>
+<script src="../plugins/highlight/highlightjs-line-numbers.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script>hljs.initLineNumbersOnLoad();</script>
 
 </body>
 </html>

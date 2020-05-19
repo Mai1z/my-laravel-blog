@@ -86,7 +86,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="exampleInputEmail1">Полный текст</label>
-                            <textarea name="content" id="" cols="30" rows="10" class="form-control">{{ $post->content }}</textarea>
+                            <textarea name="content" cols="30" rows="10" class="form-control editor" id="editor">{{ $post->content }}</textarea>
                         </div>
                     </div>
                 </div>
